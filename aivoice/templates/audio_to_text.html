@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>语音听写</title>
+
+	<!-- 引入核心文件 -->
+	<script src="../static/js/recorder.mp3.min.js"></script>
+	<!-- 引入可选的扩展支持项(如绘制波形图，录音保存等） -->
+	<script src="../static/js/frequency.histogram.view.js"></script>
+	<script src="../static/js/lib.fft.js"></script>
+	<link rel=stylesheet type="text/css" href="../static/css/style.css">
+</head>
+<body>
+	<h4>语音听写是把即时语音(≤60秒)转换成对应的文字信息，支持实时返回识别结果，达到一边上传音频一边获得识别文本的效果。 让机器能够“听懂”人类语言，相当于给机器安装上“耳朵”，使其具备“能听”的功能。</h4>
+	<HR style="FILTER:alpha(opacity=0,finishopacity=60,style=2)" width="100%"color=#987cb9 SIZE=1>
+	<!-- 构建界面 -->
+	<div class="mainBox">
+		<!--上传文件-->
+		<form action="/att/" method="POST" id="upload" enctype="multipart/form-data">
+			<span>请选择需要语音听写的mp3音频文件</span>
+			<br/>
+			<input type="file" name="file" id="pic" accept=".mp3" class="buttons1" required>
+
+			<input type="submit" value="开始识别"  class="submitButton" >
+			<span class="showUrl"></span>
+			<img src="" class="showPic" alt="">
+		</form>
+		<br><br>
+		<hr>
+
+		<!-- 按钮控制区域 -->
+		<div class="pd btns">
+			<div>
+				<button onclick="recOpen('mp3')" style="margin-right:10px">请求录音权限</button>
+				<button onclick="recClose()" style="margin-right:0">关闭录音权限</button>
+				<button onclick="recStart()">录制</button>
+				<button onclick="recStop()" >停止</button>
+			</div>
+
+			<button onclick="recPause()">暂停</button>
+			<button onclick="recResume()">继续</button>
+			<button onclick="recPlay()">播放</button>
+			<button onclick="recUpload('/att/rec','')" style="background:red;">开始识别</button>
+
+		</div>
+		<!-- 波形绘制区域 -->
+		<div class="pd recpower">
+			<div style="height:40px;width:500px;background:#999;position:relative;">
+				<div class="recpowerx" style="height:40px;background:#0B1;position:absolute;"></div>
+				<div class="recpowert" style="padding-left:50px; line-height:40px; position: relative;"></div>
+			</div>
+		</div>
+		<div class="pd waveBox">
+			<div style="border:1px solid #ccc;display:inline-block">
+				<div style="height:100px;width:500px;" class="recwave"></div>
+			</div>
+		</div>
+		<!-- 日志输出区域 -->
+		<div class="reclog" style="height:100px;overflow-y:scroll" ></div>
+	</div>
+
+	<div class="mainBox">
+		<!--注意，这里的div的id一定要是result_div -->
+		<div style="border:1px solid #ddd;min-height: 400px;padding: 8px;" id="result_div">
+		{% if result %}
+			<p style="font-size:20px;">{{result}}</p>
+		{% endif %}
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <com1 :newmsg='msg' @newshow="show"></com1>
+
+        <ul>
+            <li v-for="(item,i) in newlist" :key="i">
+                {{item.name}}--{{item.age}}
+            </li>
+
+        </ul>
+
+
+    </div>
+
+    <template id="temp">
+        <div>
+            <h1>子组件内容--{{newmsg}}</h1>
+            <input type="button" value="子组件按钮" @click="btn">
+
+        </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var com1 = {
+            template: '#temp',
+            // props: ['newmsg']
+            props: {
+                newmsg: {
+                    type: String
+                }
+            },
+            data() {
+                return {
+                    list: [{
+                        name: '小明',
+                        age: 11
+                    }, {
+                        name: '小红',
+                        age: 11
+                    }]
+                }
+
+            },
+            methods: {
+                btn() {
+                    this.$emit('newshow', this.list)
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1',
+                newlist: []
+            },
+            methods: {
+                show(data) {
+                    console.log('父组件中的show方法-----' + data)
+                    this.newlist = data
+                }
+
+            },
+            components: {
+                com1
+            }
+        })
+    </script>
+
+</body>
+
+</html>

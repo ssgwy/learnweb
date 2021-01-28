@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="float:left;">
+    <div class="row">
+        <div class="col-3">
+        <!-------------------------------------左侧开始------------------------------------------------------>
+        <a href="{{ url_for('register') }}"><h4>增加用户</h4></a>       
+        <!-----------------------------------左侧结束-------------------------------------------->
+    </div>
+    <div class="col-9">
+        <!-----------------------------------右侧开始-------------------------------------------->
+        <div class="form-group row">
+            <h5 class="row col-md-2 text-center" style="margin: 0px auto;">用户信息</h5>
+        </div>
+            <table class="table table-bordered border-primary" style="width:1200px;margin:0px auto;text-align:center;">
+                <thead class="table-primary">
+                    <tr align="center">
+                      <th scope="col">id</th>
+                      <th scope="col">用户名</th>
+                      <th scope="col">邮箱</th>
+                      <th scope="col">密码</th>
+                    </tr>      
+                </thead>
+                <tbody>
+                    {% for a in users %}
+                    <tr align="center">
+                      <td scope="row">{{ a.id }}</td>
+                      <td scope="row">{{ a.username }}</td>
+                      <td scope="row">{{ a.email }}</td>
+                      <td scope="row">{{ a.password_hash }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>      
+        <!-----------------------------------右侧结束------------------------------------------->
+        </div>
+    </div>
+</div>
+{% endblock %}

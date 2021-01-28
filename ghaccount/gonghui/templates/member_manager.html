@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="float:left;">
+    <div class="row">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <div class="col-3">
+            <!-------------------------------------左侧开始------------------------------------------------------>
+                <div class="row">
+                    <p class="col-md-4"><h5>会员查询</h5></p>
+                </div>
+                <!--会籍年份-->
+                <div class="form-group">    
+                    {{ form.date_year.label }}           
+                    {{ form.date_year() }}
+                </div>
+                <!--会籍半年份-->
+                <div class="form-group">      
+                    {{ form.date_half_year.label }}
+                    {{ form.date_half_year() }} 
+                </div>
+                <!--会员姓名-->
+                <div class="form-group row">
+                    <h6 class="col-md-4">会员姓名</h6> 
+                    <input type="text" name="name" id="" class="col-md-6">  
+                </div>
+                <!--职工类型-->
+                <div class="form-group row"> 
+                    <h6 class="col-md-4">职工类型</h6> 
+                    <div class="col-md-7">  
+                    {{ form.personnel_type() }}
+                    </div>
+                </div>
+                <!--性别-->
+                <div class="form-group row">
+                    <h6 class="col-md-4">性别</h6> 
+                    <div class="col-md-7">  
+                        {{ form.gender() }}
+                    </div>
+                </div>
+                <!--民族-->
+                <div class="form-group">      
+                    {{ form.nation.label }}
+                    {{ form.nation() }} 
+                </div>
+                <!--政治面貌--> 
+                <div class="form-group row">
+                    <h6 class="col-md-4">政治面貌</h6> 
+                    <div class="col-md-7">  
+                        {{ form.political_status() }}
+                    </div>
+                </div>
+                <!--籍贯-->
+                <div class="form-group">      
+                    {{ form.native_place.label }}
+                    {{ form.native_place() }} 
+                </div>
+                <!--出生日期-->
+                <div class="form-group">      
+                    {{ form.date_birth.label }}
+                    {{ form.date_birth() }} 
+                </div>
+                <!--学历-->
+                <div class="form-group">      
+                    {{ form.education.label }}
+                    {{ form.education() }} 
+                </div>
+                <!--操作按钮，包括查询、删除、删除确认组件-->
+                <div class="form-group row"> 
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 10px;" type="submit" name="request_button" value="查询">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 10px;"  style="margin-right: 5px;" type="submit" name="request_button" value="删除">
+                </div>
+                <div class="form-group row">
+                    {% if is_ok == 1 %}
+                    <input type="text" name="is_ok" id="" style="width:100px;margin-left: 5px;" class="col-md-4">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 5px;" type="submit" name="request_button" value="确认">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 5px;" type="submit" name="request_button" value="取消">
+                    {% endif %}       
+                </div>
+                <!--按钮组件:包括增加和批量导入-->
+                <div class="form-group row">
+                    <p><input id="btn" class="btn btn-primary col-7" style="margin-bottom: 10px;" type="submit" name="request_button" value="批量导入会费信息"></p>
+                    <p><input id="btn" class="btn btn-primary col-7" style="margin-bottom: 10px;" type="submit" name="request_button" value="批量导入会员信息"></p>      
+                </div>
+            <!-----------------------------------左侧结束-------------------------------------------->
+            </div>
+            <div class="col-9">
+                <!-----------------------------------右侧开始-------------------------------------------->
+                <div class="row justify-content-between">
+                    <div class="col-4">
+                    {% if all_count_value %}
+                        <h6>会籍时间：{{ date_year }} 年 {{ date_half_year }}</h6>
+                    {% else %}
+                        <h6>会籍时间：★ 年 ★</h6>
+                    {% endif %}
+                    </div>
+                    <input id="btn" class="btn btn-primary col-2" style="margin-bottom: 10px;" type="submit" name="request_button" value="导出Excel">   
+                </div>
+                    <table class="table table-bordered border-primary" style="width:1200px;margin:0px auto;text-align:center;">
+                        <thead class="table-primary">
+                            <tr align="center">
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>职工类型</th>
+                            <th>月工资</th>
+                            <th>半年会费</th>
+                            <th>民族</th>
+                            <th>政治面貌</th>
+                            <th>籍贯</th>
+                            <th>出生日期</th>
+                            <th>日期</th>
+                            <th>学历</th>
+                            <th>身份证号码</th>
+                            <th>联系电话</th>
+                            <th>电子邮箱</th>
+                            <th>备注</th>
+                            </tr>      
+                        </thead>
+                        <tbody>
+                            {% for member in members %}
+                            <tr align="center">
+                                <td>{{ member.info_code }}</td>
+                                <td>{{ member.name }}</td>
+                                <td>{{ member.gender }}</td>
+                                <td>{{ member.personnel_type }}</td>
+                                <td>{{ "%.2f" %  condolence.c_count }}</td>
+                                <td>{{ condolence.remark }}</td>
+                                <td>{{ condolence.in_account }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>      
+                <!-----------------------------------右侧结束------------------------------------------->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% if prev_url %}
+    <a href="{{ prev_url }}">上一页</a>
+{% endif %}
+{% if next_url %}
+    <a href="{{ next_url }}">下一页</a>
+{% endif %}
+{% endblock %}

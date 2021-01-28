@@ -1,0 +1,66 @@
+<select class="form-select" aria-label="Default select in_out">
+    <option selected>单击以选择</option>
+    <option value="1">收入</option>
+    <option value="2">支出</option>
+  </select>
+
+
+  <div class="container">
+    <div class="row justify-content-start" style="border: 1px solid #000;">
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-start
+      </div>
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-start
+      </div>
+    </div>
+    <div class="row justify-content-center" style="border: 1px solid #000;">
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-center
+      </div>
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-center
+      </div>
+    </div>
+    <div class="row justify-content-end" style="border: 1px solid #000;">
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-end
+      </div>
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-end
+      </div>
+    </div>
+    <div class="row justify-content-around" style="border: 1px solid #000;">
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-around
+      </div>
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-around
+      </div>
+    </div>
+    <div class="row justify-content-between" style="border: 1px solid #000;">
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-between
+      </div>
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-between
+      </div>
+    </div>
+    <div class="row justify-content-evenly" style="border: 1px solid #000;">
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-evenly
+      </div>
+      <div class="col-4" style="border: 1px solid #000;">
+        One of two columns justify-content-evenly
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-9">.col-9</div>
+      <div class="col-4">.col-4<br>Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.</div>
+      <div class="col-6">.col-6<br>Subsequent columns continue along the new line.</div>
+    </div>
+  </div>

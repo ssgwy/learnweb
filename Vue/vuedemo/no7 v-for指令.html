@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <h1>{{msg}}</h1>
+        <ul>
+            <!-- <li v-for="(item,i) in list" :key="i">
+                {{item}}---{{i}}
+            </li> -->
+
+            <!-- <li v-for="(item,i) in list1" :key="item.id">
+                {{item.id}}--{{item.name}}--{{i}}
+            </li> -->
+
+            <!-- <li v-for="(val,key,i) in user" :key="i">
+                {{key}}---{{val}}---{{i}}
+            </li> -->
+
+            <li v-for="(count,i) in 10" :key="i">
+                {{count}}
+            </li>
+        </ul>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1',
+                list: [1, 2, 3, 4, 5],
+                list1: [{
+                    id: 1,
+                    name: '小明'
+                }, {
+                    id: 2,
+                    name: '小红'
+                }],
+                user: {
+                    id: 1,
+                    name: '小明',
+                    age: 18
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

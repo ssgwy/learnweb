@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <h1 id=h1 ref="h1">hello world</h1>
+        <login ref="mylogin"></login>
+        <input type="button" value="点击" @click="show">
+
+
+
+
+    </div>
+
+
+    <template id="temp">
+        <div>
+            <h1>登录组件</h1>
+        </div>
+
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var login = {
+            template: "#temp",
+            data() {
+                return {
+                    msg: '登录组件'
+                }
+            },
+            methods: {
+                newshow() {
+                    console.log('组件中的方法')
+                }
+            }
+
+        }
+
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1'
+            },
+            methods: {
+                show() {
+                    console.log(this.$refs.h1.innerText)
+                    console.log(this.$refs.mylogin.msg)
+                    this.$refs.mylogin.newshow()
+                }
+            },
+            components: {
+                login
+            }
+        })
+    </script>
+
+</body>
+
+</html>

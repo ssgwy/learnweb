@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <input type="button" @click="msg='hello'" value="点击">
+        <h1 id="h1">{{msg}}</h1>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1'
+            },
+            methods: {
+                show() {
+                    console.log("show方法")
+                }
+
+            },
+            beforeCreate() {
+                //这是遇到第一个生命周期函数
+                //data数据和methods里面的方法 没有被初始化
+                // console.log(this.msg)
+                // this.show()
+            },
+            created() {
+                //data里面的数据和methods里面的方法初始化完成
+                // console.log(this.msg)
+                // this.show()
+            },
+            beforeMount() {
+                //开始操作dom元素
+                //表示最终数据并没有渲染到页面中
+                //console.log(document.getElementById('h1').innerText)
+            },
+            mounted() {
+                //创建期间的最后一个生命周期函数
+                //表示vue实例创建完成
+                //console.log(document.getElementById('h1').innerText)
+            },
+            beforeUpdate() {
+                //并不会把最终的data数据输出到控制台
+                //data里面的数据是最新的，但是输出的数据是以前的
+                //console.log(document.getElementById('h1').innerText)
+            },
+            updated() {
+                //页面中和data中的数据是同步的，都是最新的数据
+                console.log(document.getElementById('h1').innerText)
+            }
+
+
+
+
+
+        })
+    </script>
+
+</body>
+
+</html>

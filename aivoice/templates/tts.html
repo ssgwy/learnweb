@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>语音合成</title>
+    <link rel=stylesheet type="text/css" href="../static/css/style.css">
+
+    <script>
+        function change_me(index) {
+            if(index=='1'){//语速
+                range = document.getElementById('speed').value;
+                document.getElementById('speed_value').innerText=range;
+            }else if(index=='2'){//音量
+                range = document.getElementById('volume').value;
+                document.getElementById('volume_value').innerText=range;
+            }else{
+                range = document.getElementById('pitch').value;
+                document.getElementById('pitch_value').innerText=range;
+            }
+        }
+
+        function myFun(sId) {
+            var oImg = document.getElementsByTagName('img');
+            for (var i = 0; i < oImg.length; i++) {
+                if (oImg[i].id == sId) {
+                    oImg[i].style.border = '1px solid #000000';
+                } else {
+                    oImg[i].style.border = '1px solid #ffffff';
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<h4>语音合成将文字转化为自然流畅的人声，广泛应用于新闻阅读、出行导航、智能硬件和通知播报等场景。</h4>
+<HR style="FILTER:alpha(opacity=0,finishopacity=60,style=2)" width="100%"color=#987cb9 SIZE=1>
+<div>
+    <div class="mainBox">
+        <!--输入文本-->
+        <form action="/tts/" method="POST">
+            <span>请输入需要合成的文本:</span>
+            <br/>
+            <textarea name="TEXT"
+                      placeholder="内容不能为空(不要回车空行）"
+                      required>{{ content["msg"] }}
+            </textarea>
+            <br/>
+            <span>请选择发音人:</span>
+			<div class="radio">
+				<input type="radio" id="r1" name="voice_name" value="xiaoyan" style="display:none" {% if content['voice_name']=='xiaoyan' %}checked {% endif %}>
+                <label for="r1"><img class="volumn_img" id="m1" src="../static/images/xiaoyan.png" onclick="myFun(this.id)"/></label>
+				<input type="radio" id="r2" name="voice_name" value="aisjiuxu" style="display:none" {% if content['voice_name']=='aisjiuxu' %}checked {% endif %}>
+                <label for="r2"><img class="volumn_img" id="m2" src="../static/images/xiaojiu.png" onclick="myFun(this.id)"/></label>
+				<input type="radio" id="r3" name="voice_name" value="aisxping" style="display:none"  {% if content['voice_name']=='aisxping' %}checked {% endif %}>
+                <label for="r3"><img class="volumn_img" id="m3" src="../static/images/xiaoping.png" onclick="myFun(this.id)"/></label>
+				<input type="radio" id="r4" name="voice_name" value="aisjinger" style="display:none"  {% if content['voice_name']=='aisjinger' %}checked {% endif %}>
+                <label for="r4"><img class="volumn_img" id="m4" src="../static/images/xiaojing.png" onclick="myFun(this.id)"/></label>
+				<input type="radio" id="r5" name="voice_name" value="aisbabyxu" style="display:none"  {% if content['voice_name']=='aisbabyxu' %}checked {% endif %}>
+                <label for="r5"><img class="volumn_img" id="m5" src="../static/images/xiaobao.png" onclick="myFun(this.id)"/></label>
+			</div><br/>
+            语速：<input type="range" id="speed" name="speed" min="0" max="100" step="1" value="{{ content['speed'] }}" style="width:300px;" onchange="change_me(1)"><span id="speed_value">{{ content['speed'] }}</span><br/><br/>
+            音量：<input type="range" id="volume" name="volume" min="0" max="100" step="1" value="{{ content['volume'] }}" style="width:300px;" onchange="change_me(2)"><span id="volume_value">{{ content['volume'] }}</span><br/><br/>
+            音高：<input type="range" id="pitch" name="pitch" min="0" max="100" step="1" value="{{ content['pitch'] }}" style="width:300px;" onchange="change_me(3)"><span id="pitch_value">{{ content['pitch'] }}</span><br/><br/>
+            背景音乐：<input type="radio" name="bgs" id="bgs1" value="1" {% if content['bgs']=='1' %}checked {% endif %}><label for="bgs1">有</label>
+            <input type="radio" name="bgs" id="bgs2" value="0" {% if content['bgs']=='0' %}checked {% endif %}><label for="bgs2">无</label>
+            <br/>
+            <input type="submit" value="开始合成" id="submitButton" class="submitButton">
+        </form>
+    </div>
+
+    <div class="mainBox" style="height:600px;">
+        <h2>语音合成结果</h2>
+        <p>
+            <audio style="width:500px;" controls>
+                <source src="{% if file_name %} {{url_for('static',filename=file_name)}}{% endif %}">
+            </audio>
+            {% if file_name %}
+                <h3>点击播放器，播放合成的语音。</h3>
+                <p>{{file_name}}</p>
+            {% endif %}
+        </p>
+    </div>
+</div>
+    <script>
+        //判断当前哪个发音人radio被选中，则发音人图片需要被圈中
+        var oRadio=document.getElementsByName("voice_name");
+        var oImage=document.getElementsByClassName("volumn_img");
+        for(i=0;i<oRadio.length;i++){//循环数组
+                if(oRadio[i].checked){//判断当前项是否被选中
+                    oImage[i].style.border = '1px solid #000000';
+                }else{
+                    oImage[i].style.border = '1px solid #ffffff';
+                }
+            }
+    </script>
+</body>
+</html>

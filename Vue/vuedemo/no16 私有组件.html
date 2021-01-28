@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <login></login>
+    </div>
+
+    <template id="temp">
+        <h1>登录组件---{{msg}}</h1>
+    </template>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue'
+            },
+            methods: {
+
+            },
+            components: {
+                login: {
+                    template: '#temp',
+                    data() {
+                        return {
+                            msg: '组件中data    '
+                        }
+                    },
+                    methods: {}
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        
+        #main {
+            width: 1000px;
+            height: auto;
+            margin: 40px auto;
+            overflow: hidden;
+            border: 1px solid #dedede;
+            border-bottom: none;
+        }
+        
+        #main table {
+            width: 100%
+        }
+        
+        #main table tr {
+            line-height: 35px;
+        }
+        
+        #main table tr td {
+            border-bottom: 1px solid #dedede;
+            font-size: 14px;
+            text-indent: 20px;
+        }
+        
+        #main table tr td a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .t1 {
+            width: 100px;
+            border: none;
+        }
+        
+        .t2 {
+            width: 60px;
+            border: 1px solid #dedede;
+            cursor: pointer
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td>学号</td>
+                <td>姓名</td>
+                <td>新增时间</td>
+                <td>操作</td>
+            </tr>
+
+            <tr v-for="(item,i) in search(keywords)" :key="i">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.time}}</td>
+                <td><a @click.prevent="del(i)">删除</a></td>
+            </tr>
+
+
+            <tr>
+                <td><input type="text" placeholder="请输入学号" class="t1" v-model="id" /></td>
+                <td><input type="text" placeholder="请输入姓名" class="t1" v-model="name" /></td>
+
+                <td><input type="text" placeholder="搜索学生姓名" class="t1" v-model="keywords" /></td>
+                <td><input type="button" value="新增" class="t2" @click="add" /></td>
+            </tr>
+        </table>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                keywords: '',
+                id: '',
+                name: '',
+                msg: 'Hello Vue1',
+                list: [{
+                    id: 1,
+                    name: '小明',
+                    time: new Date()
+                }, {
+                    id: 2,
+                    name: '小红',
+                    time: new Date()
+                }, {
+                    id: 3,
+                    name: '小刚',
+                    time: new Date()
+                }]
+            },
+            methods: {
+                add() {
+                    var stu = {
+                        id: this.id,
+                        name: this.name,
+                        time: new Date()
+                    }
+                    this.list.push(stu)
+                    this.id = this.name = ''
+
+                },
+                del(i) {
+                    console.log(i)
+                    this.list.splice(i, 1)
+
+                },
+                search(keywords) {
+                    var newList = []
+                    this.list.forEach(item => {
+                        if (item.name.indexOf(keywords) != -1) {
+                            newList.push(item)
+                        }
+                    })
+                    return newList
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

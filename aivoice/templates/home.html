@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../static/js/jquery-3.5.1.min.js"></script>
+    <style>
+    .body{
+        margin:0px auto;
+        width:1200px;
+        height:800px;
+    }
+    a {
+        text-decoration:none;
+        color:#333;
+    }
+    #nav {
+        overflow:hidden;
+    }
+    #nav ul li {
+        background:#eaeaea;
+        float:left;
+        margin-right:10px;
+        padding:10px 15px;
+        list-style:none;
+        position:relative;
+        color:#181818;
+    }
+    #nav ul li.selected {
+        background:#515151;
+    }
+    .selected {
+        background:#515151;
+    }
+    #nav ul li.selected a {
+        color:#fff;
+    }
+    #nav ul li a {
+        text-decoration:none;
+        display:block;
+    }
+    #nav span {
+        width:0;
+        height:0;
+        border-right:10px solid transparent;
+        border-top:10px solid red;
+        position:absolute;
+        top:0;
+        left:0;
+        display:none;
+    }
+    #nav li:first-child span {
+        display:block;
+    }
+    img{
+        width:auto;
+        max-width:100%
+    }
+    </style>
+
+    <script language="javascript">
+    $(function() {
+        //导航
+        var link = $("#nav li");
+        var links = $("#nav a");
+        link.each(function() {
+            $(this).click(function() {
+                $(this).addClass('selected');
+                $(this).find('span').show();
+                $(this).siblings().removeClass('selected');
+                $(this).siblings().find('span').hide();
+                return True; //页面跳转
+            });
+        });
+        //当前页或者跳转后页面的导航栏添加选中后样式
+        $("#nav a").each(function() {
+            $this = $(this);
+            if ($this[0].href == String(window.location)) { //String 对象用于处理文本（字符串）
+                $this.parent().addClass("selected");
+            }
+        });
+
+    })
+    </script>
+
+</head>
+<body>
+  <div class="body">
+    <div class="top">
+        <img src="../static/images/banner.jpg" />
+    </div>
+    <div id="nav">
+      <ul>
+        <li class="selected"><a href="/tts/" target="view_frame">语音合成</a></li>
+        <li><a href="/att/" target="view_frame">语音听写</a></li>
+        <li><a href="/eva/" target="view_frame">语音评测</a></li>
+        <li><a href="/age/" target="view_frame">性别年龄识别</a></li>
+      </ul>
+      <span style="clear:both"></span>
+    </div>
+    <div>
+      <iframe name="view_frame" src="tts/" width="1200px" height="800px"></iframe>
+    </div>
+
+  </div>
+
+</body>
+</html>

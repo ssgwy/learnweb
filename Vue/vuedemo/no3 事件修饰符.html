@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        
+        .con {
+            width: 300px;
+            height: 300px;
+            background: #dbdbdb;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <div @click.capture="divShow" class="con">
+            <input type="button" value="点击" @click="btnShow">
+        </div>
+
+        <a href="http://www.baidu.com" @click.prevent.once="link">百度</a>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue'
+            },
+            methods: {
+                btnShow() {
+                    console.log('btn事件')
+                },
+                divShow() {
+                    console.log('div事件')
+                },
+                link() {
+                    console.log('link事件')
+                }
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

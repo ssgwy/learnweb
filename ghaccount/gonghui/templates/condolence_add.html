@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="text-left col-lg-4"></div>
+    <div class="text-left col-lg-4">
+    <h3>慰问登记</h3>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.c_date.label }}
+            {{ form.c_date() }}
+        </p>
+        <p>
+            {{ form.c_name.label }}
+            {{ form.c_name() }}
+        </p>
+        <p style="width:200px;">
+            {{ form.c_type.label }}
+            {{ form.c_type() }}
+        </p>
+        <p>
+            {{ form.c_count.label }}
+            {{ form.c_count() }}
+        </p>   
+        <p>
+            {{ form.remark.label }}
+            {{ form.remark() }}
+        </p>
+        <p>
+            <input id="btn" class="btn btn-warning" type="submit" name="request_button" value="提交">
+        </p>
+    </form>    
+    </div>
+</div>
+{% endblock %}

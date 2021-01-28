@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>登 录</h1>
+    <form action="" method="post">
+        <p>
+            {{ form.username.label }}
+            {{ form.username() }}
+        </p> 
+        <p>
+            {{ form.password.label }}
+            {{ form.password() }}
+        </p>  
+        <p>
+            {{ form.remember_me.label }}
+            {{ form.remember_me() }}
+        </p>
+        <p>
+         {{ form.submit() }}
+        </p>   
+    </form>
+
+ {% endblock %}

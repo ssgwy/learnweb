@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 border-right">
+            <!-------------------------------------左侧开始------------------------------------------------------>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <h5 style="margin: 10px auto;">会籍查询</h5>
+                </div>
+                <!--会籍年份-->
+                <div class="row form-group">
+                    <h6 style="margin: 10px;">会籍年份</h6>
+                    <input type="text" name="date_year" id="" style="width: 100px;height: 30px;">
+                    <h6 style="margin: 10px;">年</h6>
+                </div>
+                <!--会籍半年份-->
+                <div class="row form-group" style="margin-top: 10px;">
+                    <div class="col-md-5">
+                        <h6 style="margin: 10px;">半年</h6>
+                    </div>
+                    <div class="col-md-6" style="width: 150px;height: 30px;padding-left: 0px;">
+                        {{ form.date_half_year() }}
+                    </div>
+                </div>
+                <!--会员姓名-->
+                <div class="row form-group">
+                    <div class="col-md-5">
+                        <h6 style="margin: 10px;">姓名</h6>
+                    </div>
+                    <div class="col-md-6" style="width: 150px;height: 30px;padding-left: 0px;">
+                        <input type="text" name="name" id="" style="width: 110px;text-align: center;">
+                    </div>
+                </div>
+                <!--职工类型-->
+                <div class="row form-group">
+                    <div class="col-md-5">
+                        <h6 style="margin: 10px;">类型</h6>
+                    </div>
+                    <div class="col-md-6" style="width: 150px;height: 30px;padding-left: 0px;">
+                        {{ form.personnel_type() }}
+                    </div>
+                </div>
+                <!--操作按钮，包括查询、删除、删除确认组件-->
+                {% if is_ok == 0 %}
+                <div class="row form-group">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 10px;" type="submit"
+                        name="request_button" value="查询">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 10px;"
+                        style="margin-right: 5px;" type="submit" name="request_button" value="删除">
+                </div>
+                {% endif %}
+                {% if is_ok == 1 %}
+                <div class="row form-group">
+                    <input type="text" name="input_ok" id="" style="width:100px;margin-left: 5px;" class="col-md-4">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 5px;" type="submit"
+                        name="request_button" value="确认">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 5px;" type="submit"
+                        name="request_button" value="取消">
+                </div>
+                {% endif %}
+                <!--按钮组件:包括增加和批量导入-->
+                <div class="row form-group">
+                    <input id="btn" class="btn btn-primary col-9" style="margin-bottom: 10px;" type="submit"
+                        name="request_button" value="导入Excel">
+                </div>
+                <!-----------------------------------左侧结束-------------------------------------------->
+
+        </div>
+        <div class="col-md-9">
+            <!-----------------------------------右侧开始-------------------------------------------->
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    {% if year %}
+                    <h6>会籍时间：{{ year }} 年 {{ half_year }}</h6>
+                    {% else %}
+                    <h6>会籍时间：★ 年 ★</h6>
+                    {% endif %}
+                </div>
+                <input id="btn" class="btn btn-primary col-2" style="margin-bottom: 10px;" type="submit"
+                    name="request_button" value="导出Excel">
+            </div>
+            </form>
+            <table class="table table-bordered border-primary" style="width:900px;margin:0px auto;text-align:center;">
+                <thead class="table-primary">
+                    <tr align="center">
+                        <th>序号</th>
+                        <th>会员号</th>
+                        <th>姓名</th>
+                        <th>职工类型</th>
+                        <th>月工资</th>
+                        <th>半年会费</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                    <tr align="center">
+                        <td scope="row">{{ loop.index0 + 1 }}</td>
+                        <td scope="row">{{ member.member_id }}</td>
+                        <td scope="row">{{ member.name }}</td>
+                        <td scope="row">{{ member.personnel_type }}</td>
+                        <td scope="row">{{ "%.2f" % member.salary }}</td>
+                        <td scope="row">{{ member.membership_fee }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-----------------------------------右侧结束------------------------------------------->
+        </div>
+    </div>
+</div>
+{% if prev_url %}
+<a href="{{ prev_url }}">上一页</a>
+{% endif %}
+{% if next_url %}
+<a href="{{ next_url }}">下一页</a>
+{% endif %}
+{% endblock %}

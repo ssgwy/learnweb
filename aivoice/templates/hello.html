@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>欢迎学习我的智能语音课程</h3>
+<table>
+    <tr><th>学号</th><th>姓名</th><th>年龄</th></tr>
+    {% for one in students %}
+        {% if one[2] > 15  %}
+            <tr>
+                <td>{{one[0]}}</td>
+                <td>{{one[1]}}</td>
+                <td>青年</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>{{one[0]}}</td>
+                <td>{{one[1]}}</td>
+                <td>少年</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+
+<form action="/add" method="post">
+    学号：<input type="text" name="id"><br/>
+    姓名：<input type="text" name="name"><br/>
+    年龄：<input type="text" name="age"><br/>
+    <input type="submit" value="提交">
+</form>
+
+
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="float:left;">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <!-------------------------------------左侧开始------------------------------------------------------>
+            <div class="row">
+                <p class="col-md-4">
+                <h5>慰问查询</h5>
+                </p>
+            </div>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.date_begin.label }}
+                    {{ form.date_begin() }}
+                    <!--    <input type="date" name="date_begin" id="" class="col-md-8">   -->
+                </div>
+                <div class="form-group">
+                    {{ form.date_end.label }}
+                    {{ form.date_end() }}
+                </div>
+                <div class="form-group row">
+                    <h6 class="col-md-4">被慰问人</h6>
+                    <input type="text" name="c_name" id="" class="col-md-6">
+                </div>
+                <div class="form-group row">
+                    <h6 class="col-md-4">慰问类型</h6>
+                    <div class="col-md-7">
+                        {{ form.c_type() }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <h6 class="col-md-4">是否入账</h6>
+                    <div class="col-md-7">
+                        {{ form.in_account() }}
+                    </div>
+                </div>
+                {% if is_ok == 0 %}
+                <div class="form-group row">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 10px;" type="submit"
+                        name="request_button" value="查询">
+                    <input id="btn" class="btn btn-warning col-md-4" style="margin-left: 10px;" type="submit"
+                        name="request_button" value="季结入账">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 10px;"
+                        style="margin-right: 5px;" type="submit" name="request_button" value="删除">
+                </div>
+                {% endif %}
+                {% if is_ok == 1 %}
+                <div class="form-group row">
+                    <input type="text" name="is_ok" id="" style="width:100px;margin-left: 5px;" class="col-md-4">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 5px;" type="submit"
+                        name="request_button" value="确认">
+                    <input id="btn" class="btn btn-warning col-md-3" style="margin-left: 5px;" type="submit"
+                        name="request_button" value="取消">
+                </div>
+                {% endif %}
+                <a href="{{ url_for('condolence_add') }}">
+                    <h5>记一笔</h5>
+                </a>
+                <br>
+                <input id="btn" class="btn btn-primary col-6" style="margin-bottom: 10px;" type="submit"
+                    name="request_button" value="导入Excel">
+                <!-----------------------------------左侧结束-------------------------------------------->
+        </div>
+        <div class="col-md-9">
+            <!-----------------------------------右侧开始-------------------------------------------->
+            <div class="row">
+                <div class="col-md-10" style="margin-top: 7px;">
+                    {% if all_count_value %}
+                    <h6>共慰问{{ condolence_count }}次，合计:{{ "%.2f" % all_count_value }}元</h6>
+                    {% else %}
+                    <h6>共慰问★次，合计:★元</h6>
+                    {% endif %}
+                </div>
+                <input id="btn" class="btn btn-primary col-md-2" style="margin-bottom: 10px;float: right;" type="submit"
+                    name="request_button" value="导出Excel">
+            </div>
+            <div class="row">
+                <table class="table table-bordered border-primary" style="width:1200px;margin-left: 20px;text-align:center;">
+                    <thead class="table-primary">
+                        <tr align="center">
+                            <th>id</th>
+                            <th>慰问日期</th>
+                            <th>慰问人</th>
+                            <th>慰问类别</th>
+                            <th>慰问金额</th>
+                            <th>备注</th>
+                            <th>是否入账</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for condolence in condolences %}
+                        <tr align="center">
+                            <td>{{ loop.index0 + 1 }}</td>
+                            <td>{{ condolence.c_date }}</td>
+                            <td>{{ condolence.c_name }}</td>
+                            <td>{{ condolence.c_type }}</td>
+                            <td>{{ "%.2f" % condolence.c_count }}</td>
+                            <td>{{ condolence.remark }}</td>
+                            <td>{{ condolence.in_account }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-----------------------------------右侧结束------------------------------------------->
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+{% if prev_url %}
+<a href="{{ prev_url }}">上一页</a>
+{% endif %}
+{% if next_url %}
+<a href="{{ next_url }}">下一页</a>
+{% endif %}
+{% endblock %}

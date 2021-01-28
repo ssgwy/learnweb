@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>语音评测</title>
+
+	<!-- 引入核心文件 -->
+	<script src="../static/js/recorder.mp3.min.js"></script>
+	<!-- 引入可选的扩展支持项(如绘制波形图，录音保存等） -->
+	<script src="../static/js/frequency.histogram.view.js"></script>
+	<script src="../static/js/lib.fft.js"></script>
+	<link rel=stylesheet type="text/css" href="../static/css/style.css">
+	<script type="text/javascript">
+		function POSTInWebRefresh(url){
+			var category=fm.category.value;
+			var TEXT = fm.TEXT.value;
+			var eva = {};//字典
+			var json=[];//数组
+			eva["category"]=category;
+			eva["text"]=TEXT;
+			json.push(eva);
+			var a = JSON.stringify(json);//json字符串
+			recUpload(url,a);
+		}
+    </script>
+</head>
+<body>
+	<h4>对中英文的朗读发音进行评分和问题定位，支持字、词、句、篇章等题型， 并返回准确度评分。这里提供字、词、句三种题型评测。</h4>
+	<HR style="FILTER:alpha(opacity=0,finishopacity=60,style=2)" width="100%"color=#987cb9 SIZE=1>
+	<!-- 构建界面 -->
+	<div class="mainBox">
+		<!--上传文件-->
+		<form action="" method="POST" id="form" name="fm">
+			<span>请选择评测类型:</span>
+			<div>
+				<input type="radio" name="category" value="read_syllable">单字
+				<input type="radio" name="category" value="read_word">词语
+				<input type="radio" name="category" value="read_sentence" checked>句子
+				<input type="radio" name="category" value="read_chapter">篇章
+			</div>
+			<br/>
+			<!--输入文本-->
+			<span>请输入需要评测的文字：</span>
+			<textarea name="TEXT"
+					  placeholder="内容不能为空(不要回车空行）"
+					  style="font-size: 16px;min-height:80px;min-width:200px;width:90%"
+					  required></textarea>
+		</form>
+
+		<!-- 按钮控制区域 -->
+		<div class="pd btns">
+			<button onclick="recOpen('mp3')" style="margin-right:10px">请求录音权限</button>
+			<button onclick="recClose()" style="margin-right:0">关闭录音权限</button>
+			<button onclick="recStart()">录制</button>
+			<button onclick="recStop()" >停止</button>
+			<button onclick="recPause()">暂停</button>
+			<button onclick="recResume()">继续</button>
+			<button onclick="recPlay()">播放</button>
+			<button onclick="POSTInWebRefresh('/eva/')" style="background:red;">开始评测</button>
+		</div>
+
+		<!-- 波形绘制区域 -->
+		<div class="pd recpower">
+			<div style="height:40px;width:500px;background:#999;position:relative;">
+				<div class="recpowerx" style="height:40px;background:#0B1;position:absolute;"></div>
+				<div class="recpowert" style="padding-left:50px; line-height:40px; position: relative;"></div>
+			</div>
+		</div>
+		<div class="pd waveBox">
+			<div style="border:1px solid #ccc;display:inline-block">
+				<div style="height:100px;width:500px;" class="recwave"></div>
+			</div>
+		</div>
+		<!-- 日志输出区域 -->
+		<div class="reclog" style="height:100px;overflow-y:scroll" ></div>
+	</div>
+
+	<div class="mainBox" style="height:560px;">
+		<div style="border:1px solid #ddd;min-height: 300px;padding: 8px;" id="result_div">
+
+		</div>
+
+	</div>
+</body>
+</html>

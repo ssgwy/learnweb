@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <h1 v-if="flag">v-if{{msg}}</h1>
+        <h1 v-show="flag">v-show{{msg}}</h1>
+        <input type="button" value="点击" @click="btn">
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue',
+                flag: true
+            },
+            methods: {
+                btn() {
+                    this.flag = !this.flag
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+pre{
+	white-space:pre-wrap;
+}
+a{
+	text-decoration: none;
+	color:#06c;
+}
+a:hover{
+	color:#f00;
+}
+
+.mainBox{
+	float:left;
+	width:46%;
+	min-height:480px;
+    margin-left:20px;
+	margin-top:12px;
+	padding: 12px;
+	border-radius:6px;
+	background:#fff;
+	border: 1px solid #008CBA;
+	box-shadow: 2px 2px 3px #aaa;
+}
+
+.btns button{
+	display: inline-block;
+	cursor: pointer;
+	border: none;
+	border-radius: 6px;
+	background: #008CBA;
+	color:#fff;
+	padding: 0 15px;
+	margin:3px 1px 3px 0;
+	line-height: 36px;
+	height: 36px;
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+.btns button:hover{
+    background:#191970;
+}
+
+.pd{
+	padding:0 0 6px 0;
+}
+.lb{
+	display:inline-block;
+	vertical-align: middle;
+	background:#00940e;
+	color:#fff;
+	font-size:14px;
+	padding:2px 8px;
+	border-radius: 99px;
+}
+
+@media (max-width:500px){
+       .container{
+        width:100%;
+        float:left;
+    }
+ }
+
+.submitButton{
+	display: inline-block;
+	cursor: pointer;
+	border: none;
+	border-radius: 6px;
+	background: red;
+	color:#fff;
+	padding: 5px 15px;
+	margin:5px 10px 5px 0;
+	line-height: 36px;
+	overflow: hidden;
+	vertical-align: middle;
+	font-size:20px;
+	float:right;
+}
+.submitButton:hover{
+    background:#000000;
+}
+
+.volumn_img{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    margin:10px 0px 0px 20px;
+}
+
+#m1{
+    border:1px black solid;
+}
+
+textarea{
+    font-size:18px;
+    min-height:150px;
+    min-width:98%;
+    max-width:98%;
+    width:98%;
+}

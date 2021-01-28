@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateY(100px);
+        }
+        
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <ul>
+            <transition-group appear>
+                <li v-for="(item,i) in list" :key="i">
+                    {{item.id}}--{{item.name}}--{{item.age}}
+                </li>
+            </transition-group>
+        </ul>
+
+        <input type="text" placeholder="id" v-model="id">
+        <input type="text" placeholder="name" v-model="name">
+        <input type="text" placeholder="age" v-model="age">
+        <input type="button" value="添加" @click="add">
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1',
+                id: '',
+                name: '',
+                age: '',
+                list: [{
+                    id: 1,
+                    name: '小明',
+                    age: 15
+                }, {
+                    id: 2,
+                    name: '小明1',
+                    age: 17
+                }, {
+                    id: 3,
+                    name: '小明2',
+                    age: 15
+                }]
+            },
+            methods: {
+                add() {
+                    var newname = {
+                        id: this.id,
+                        name: this.name,
+                        age: this.age
+                    }
+                    this.list.push(newname)
+                    this.id = this.name = this.age = ''
+
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

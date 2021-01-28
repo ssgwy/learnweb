@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <input type="text" v-model="num1">
+        <select v-model="opt">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" v-model="num2">
+        <input type="button" value="=" @click="btn">
+        <input type="text" v-model="num3">
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1',
+                num1: '',
+                num2: '',
+                num3: '',
+                opt: '+'
+            },
+            methods: {
+                btn() {
+                    switch (this.opt) {
+                        case '+':
+                            this.num3 = parseInt(this.num1) + parseInt(this.num2)
+                            break;
+                        case '-':
+                            this.num3 = parseInt(this.num1) - parseInt(this.num2)
+                            break;
+                        case '*':
+                            this.num3 = parseInt(this.num1) * parseInt(this.num2)
+                            break;
+                        case '/':
+                            this.num3 = parseInt(this.num1) / parseInt(this.num2)
+                            break;
+                    }
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

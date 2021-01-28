@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        
+        .a1 {
+            color: red;
+        }
+        
+        .a2 {
+            font-size: 50px;
+        }
+        
+        .a3 {
+            background: #dbdbdb;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <!-- <h1 class="a1 a2 a3">{{msg}}</h1> -->
+        <!-- <h1 :class="['a1','a2',{'a3':flag}]">{{msg}}</h1> -->
+        <h1 :class="{a1:false}">{{msg}}</h1>
+        <h1 :style="{color:'red'}">{{msg}}</h1>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1',
+                flag: false
+            }
+        })
+    </script>
+
+</body>
+
+</html>

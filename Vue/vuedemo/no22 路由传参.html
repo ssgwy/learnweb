@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        
+        .router-link-active {
+            color: red
+        }
+        
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(200px);
+        }
+        
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <router-link to="/login?id=20">登录</router-link>
+        <router-link to="/register/10/小明">注册</router-link>
+
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+
+        <h1>{{msg}}</h1>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+
+    <script>
+        var login = {
+            template: '<h1>登录组件--{{$route.query.id}}</h1>',
+            created() {
+                console.log(this.$route.query.id)
+            }
+        }
+
+        var register = {
+            template: '<h1>注册组件--{{$route.params.id}}--{{$route.params.name}}</h1>',
+            created() {
+                console.log(this.$route.params.name)
+            }
+        }
+
+
+        var router = new VueRouter({
+            routes: [{
+                path: '/',
+                redirect: 'login'
+            }, {
+                path: '/login',
+                component: login
+            }, {
+                path: '/register/:id/:name',
+                component: register
+            }]
+        })
+
+
+
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1'
+            },
+            router
+        })
+    </script>
+
+</body>
+
+</html>

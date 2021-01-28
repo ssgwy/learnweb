@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="text-left col-lg-4"></div>
+    <div class="text-left col-lg-4">
+    <h3>财务记账</h3>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.a_date.label }}
+            {{ form.a_date() }}
+        </p>
+        <p>
+            {{ form.matters.label }}
+            {{ form.matters() }}
+        </p>
+        <p style="width:200px;">
+            {{ form.a_type.label }}
+            {{ form.a_type() }}
+        </p>
+        <p>
+            {{ form.a_count.label }}
+            {{ form.a_count() }}
+        </p>   
+        <p>
+            {{ form.remark.label }}
+            {{ form.remark() }}
+        </p>
+        <p>
+            <input id="btn" class="btn btn-warning" type="submit" name="request_button" value="提交">
+        </p>
+    </form>  
+    </div>
+</div>
+{% endblock %}

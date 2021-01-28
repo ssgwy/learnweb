@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+        <mycom1></mycom1>
+        <mycom2></mycom2>
+        <mycom3></mycom3>
+
+    </div>
+
+    <template id="temp">
+        <div>
+            <h1>组件第三种形式</h1>
+            <h2>hello</h2>
+        </div>
+
+    </template>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // var com1 = Vue.extend({
+        //     template: '<h1>Hello World</h1>'
+        // })
+        //组件的第一种创建方式
+        Vue.component('mycom1', Vue.extend({
+                template: '<h1>Hello World</h1>'
+            }))
+            //组件的第二种创建方式
+        Vue.component('mycom2', {
+                template: '<h1>组件的第二种创建方式</h1>'
+            })
+            //组件的第二种创建方式
+        Vue.component('mycom3', {
+            template: '#temp'
+        })
+
+
+
+
+
+
+
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1'
+            }
+        })
+    </script>
+
+</body>
+
+</html>

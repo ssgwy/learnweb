@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        
+        .router-link-active {
+            color: red
+        }
+        
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(200px);
+        }
+        
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+
+        <router-view></router-view>
+        <router-view name="left"></router-view>
+        <router-view name="right"></router-view>
+        <router-view name="footer"></router-view>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+
+    <script>
+        var header = {
+            template: '<h1>头部</h1>'
+        }
+
+        var left = {
+            template: '<h1>左侧</h1>'
+        }
+
+        var right = {
+            template: '<h1>右侧</h1>'
+        }
+
+        var footer = {
+            template: '<h1>底部</h1>'
+        }
+
+
+
+        var router = new VueRouter({
+            routes: [{
+                path: '/',
+                components: {
+                    default: header,
+                    left: left,
+                    right: right,
+                    footer: footer
+                }
+            }]
+        })
+
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1'
+            },
+            router
+        })
+    </script>
+
+</body>
+
+</html>

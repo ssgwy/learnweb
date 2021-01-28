@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <h1 v-cloak>---{{msg}}---</h1>
+        <h2 v-text="msg">----</h2>
+        <h1>----</h1>
+        <div>{{msg1}}</div>
+        <div v-text="msg1"></div>
+        <div v-html="msg1"></div>
+        <h1>----</h1>
+        <h1 v-bind:title="msg">{{msg}}</h1>
+        <h1 :title="msg">{{msg}}</h1>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue',
+                msg1: '<h1>Hello World</h1>'
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

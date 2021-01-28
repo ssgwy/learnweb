@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        
+        .con {
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+        
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(200px);
+        }
+        
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s ease;
+        }
+        
+        .h1-enter,
+        .h1-leave-to {
+            opacity: 0;
+        }
+        
+        .h1-enter-active,
+        .h1-leave-active {
+            transition: all 1s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" v-cloak>
+
+        <input type="button" value="toggle" @click="flag=!flag">
+
+        <transition>
+            <div class="con" v-if="flag"></div>
+        </transition>
+
+        <hr>
+
+        <input type="button" value="toggle2" @click="flag2=!flag2">
+
+        <transition name="h1">
+            <h1 v-if="flag2">{{msg}}</h1>
+        </transition>
+
+
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1',
+                flag: false,
+                flag2: false
+            }
+        })
+    </script>
+
+</body>
+
+</html>

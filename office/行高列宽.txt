@@ -1,0 +1,10 @@
+range(1,5) 得到1，2，3，4 不能取得最后一个5
+
+设置第10行行高为38：
+for i in range(1,5):
+    sheet.row_dimensions[10].height = 38
+
+设置列宽: 
+for col in 'BCE':
+    sheet.column_dimensions[col].width = 15
+

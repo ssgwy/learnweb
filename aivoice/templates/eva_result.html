@@ -1,0 +1,16 @@
+<style>
+    th{
+    text-align:right;
+    }
+</style>
+<h3>您此次的评测结果如下：</h3>
+<table>
+    {% for one in result %}
+        {% for key,value in one.items()%}
+          <tr>
+              <th>{{key}}:</th>
+              <td>{{value}}</td>
+          </tr>
+        {% endfor %}
+    {% endfor %}
+</table>

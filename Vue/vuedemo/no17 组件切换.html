@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main" v-cloak>
+        <!-- <a href="" @click.prevent="flag=true">登录</a>
+        <a href="" @click.prevent="flag=false">注册</a>
+        <login v-if="flag"></login>
+        <register v-else></register> -->
+
+        <a @click.prevent="com='login'">登录</a>
+        <a @click.prevent="com='register'">注册</a>
+        <a @click.prevent="com='register2'">注册2</a>
+
+        <component :is="com"></component>
+
+
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('login', {
+            template: '<h1>登录</h1>'
+        })
+
+        Vue.component('register', {
+            template: '<h1>注册</h1>'
+        })
+
+        Vue.component('register2', {
+            template: '<h1>注册2</h1>'
+        })
+
+
+
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                msg: 'Hello Vue1',
+                flag: true,
+                com: 'login'
+            }
+        })
+    </script>
+
+</body>
+
+</html>

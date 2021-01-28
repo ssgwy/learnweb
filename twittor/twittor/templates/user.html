@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table-light">
+    <tr>
+        <td><img src="{{ user.avatar(200) }}" alt=""></td>
+        <td>
+            <p>
+                <form action="" method="post">
+                    <b>{{ user.username }}</b>
+                    {% if user==current_user %}
+                    {% if current_user.is_activated != 1 %}
+                    <input id="btn" class="btn btn-warning" type="submit" name="request_button" value="激活">
+                    {% else %}
+                    <span class="badge badge-success">已激活</span>
+                    {% endif %}
+                    {% endif %}
+                </form>
+                <p>
+                    粉丝：{{ user.followers.count() }}  关注：{{ user.followed.count() }}
+                </p>
+                <form action="" method="post">
+                    {% if user != current_user %}
+                    {% if current_user.is_following(user) %}
+                    <input class="btn btn-outline-primary" type="submit" name="request_button" value="取消关注">
+                    {% else %}
+                    <input class="btn btn-outline-primary" type="submit" name="request_button" value="关注">
+                    {% endif %}
+                    {% endif %}
+                </form>
+            </p>
+            {% if user.about_me %}
+            <p><b>个人简介：</b>{{ user.about_me }}</p>
+            {% endif %}
+
+            {% if user.create_time %}
+            <p><b>创建时间：</b>{{ user.create_time }}</p>
+            {% endif %}  
+            {% if user==current_user %}
+            <p><a href="{{ url_for('edit_profile') }}">编辑个人信息</a></p>          
+            {% endif %}
+        </td>
+    </tr>
+</table>
+{% include '_tweets.html' %}
+
+{% if prev_url %}
+<a href="{{ prev_url }}">前一页</a>
+{% endif %}
+{% if next_url %}
+<a href="{{ next_url }}">下一页</a>
+{% endif %}
+
+{% endblock %}

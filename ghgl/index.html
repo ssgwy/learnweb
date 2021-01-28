@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生信息管理</title>
+    <!-- 引入外部的样式文件 -->
+    <link rel="stylesheet" href="./css/index.css">
+    <!-- 使用CDN引入Vue模块 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- 引入Element UI样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入Element组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <el-container>
+            <el-header style="height: 80px;">学生信息管理系统</el-header>
+            <el-container>
+                <!----------------- 侧边导航栏 ------------>
+                <el-aside width="200px">
+                    <el-menu default-active="1" class="el-menu-vertical-demo">
+                        <el-menu-item index="1">
+                            <i class="el-icon-menu"></i>
+                            <span slot="title">班级管理</span>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <i class="el-icon-user"></i>
+                            <span slot="title">学生信息</span>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <i class="el-icon-s-custom"></i>
+                            <span slot="title">讲师信息</span>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <i class="el-icon-document"></i>
+                            <span slot="title">课程管理</span>
+                        </el-menu-item>
+                    </el-menu>
+                </el-aside>
+                <!---------------主窗体------------------->
+                <el-container>
+                    <el-main>
+                        <!-- 面包屑导航 -->
+                        <el-breadcrumb separator-class="el-icon-arrow-right">
+                            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                            <el-breadcrumb-item>班级管理</el-breadcrumb-item>
+                        </el-breadcrumb>
+                        <!-- 表单 用于查询搜索的输入框和各个功能按钮-->
+                        <el-form :inline="true" style="margin-top: 20px;">
+                            <el-row>
+                                <el-col :span="12">
+                                    <!-- Form 表单项目 -->
+                                    <el-form-item label="请输入查询条件：">
+                                        <el-input placeholder="输入查询条件" style="width: 420px;"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="8" style="text-align: right;padding-right: 10px;">
+                                    <!--Button按钮 按钮组  -->
+                                    <el-button-group>
+                                        <el-button type="primary" icon="el-icon-search">查询</el-button>
+                                        <el-button type="primary" icon="el-icon-tickets">全部</el-button>
+                                        <el-button type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
+                                    </el-button-group>
+                                </el-col>
+                                <el-col :span="2">
+                                    <!-- upload上传 -->
+                                    <el-upload>
+                                        <el-button type="primary">导入Excel</el-button>
+                                    </el-upload>
+                                </el-col>
+                                <el-col :span="2">
+                                    <!-- 导出功能使用普通按钮 -->
+                                    <el-button type="primary">导出Excel</el-button>
+                                </el-col>
+                            </el-row>
+                        </el-form>
+                        <!-- 使用表格来展示信息 -->
+                        <el-table :data="students" border style="width: 100%" size="mini">
+                            <el-table-column type="selection">
+                            </el-table-column>
+                            <el-table-column type="index" label="序号" width="60" align="center">
+                            </el-table-column>
+                            <el-table-column prop="sno" label="学号" width="100" align="center">
+                            </el-table-column>
+                            <el-table-column prop="name" label="姓名" width="80" align="center">
+                            </el-table-column>
+                            <el-table-column prop="gender" label="性别" width="60" align="center">
+                            </el-table-column>
+                            <el-table-column prop="birthday" label="出生日期" width="150" align="center">
+                            </el-table-column>
+                            <el-table-column prop="mobil" label="电话" width="150" align="center">
+                            </el-table-column>
+                            <el-table-column prop="email" label="电子邮箱" width="160" align="center">
+                            </el-table-column>
+                            <el-table-column prop="address" label="地址" align="center">
+                            </el-table-column>
+                            <el-table-column label="操作" width="180" align="center">
+                                <el-button type="success" icon="el-icon-check" size="mini" circle></el-button>
+                                <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" circle></el-button>
+                            </el-table-column>
+                        </el-table>
+                        <!-- 分页 -->
+                        <el-row style="margin-top: 10px;">
+                            <el-col :span='8' style="text-align: left;">
+                                <el-button type="primary" icon="el-icon-delete" size='mini'>批量删除</el-button>
+                            </el-col>
+                            <el-col :span='16' style="text-align: right;">
+                                <el-pagination :current-page="currentpage" :page-sizes="[5, 10, 50, 100]"
+                                    :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper"
+                                    :total="total">
+                                </el-pagination>
+                            </el-col>
+                        </el-row>
+
+                    </el-main>
+                    <!---------------页脚------------------->
+                    <el-footer style="height: 30px;">学生信息管理系统 版权所有：=GWY= | 2020-12-29</el-footer>
+                </el-container>
+            </el-container>
+        </el-container>
+    </div>
+
+</body>
+
+</html>
+<!-- 引入Vue代码 -->
+<script src="js/index.js"></script>

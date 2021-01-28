@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>导入数据</h1>  
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+  {{ form.date_year.label }}
+  {{ form.date_year() }}
+  {{ form.date_half_year.label }}
+  {{ form.date_half_year() }}
+  <hr>
+  <input id="btn" class="btn btn-primary col-2" style="margin-bottom: 10px;" type="submit" name="request_button" value="导入会费信息">
+  <br>
+  <input id="btn" class="btn btn-primary col-2" style="margin-bottom: 10px;" type="submit" name="request_button" value="导入会员信息">
+  <br>
+  <input id="btn" class="btn btn-primary col-2" style="margin-bottom: 10px;" type="submit" name="request_button" value="导出互助数据">
+  </form>
+  {% endblock %}
